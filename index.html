@@ -529,8 +529,9 @@
             fetch(N8N_WEBHOOK_URL, {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
-                },
+    "Content-Type": "application/json; charset=utf-8"
+},
+
                 body: JSON.stringify({ 
                     message: userMessage  // n8n-ге "message" деген атпен барады
                 }) 
