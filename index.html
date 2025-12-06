@@ -539,9 +539,12 @@
             .then(data => {
                 // n8n-нен жауап "answer" деген кілтпен келуі керек
                 messageElement.textContent = data.answer || data.output || "Жауап келмеді...";
-            }).catch(() => {
-                messageElement.textContent = "Қате! n8n қосылмаған немесе Webhook істемей тұр.";
+                        }).catch((error) => {
+                // Қатенің нақты себебін экранға шығарамыз
+                alert("ҚАТЕ ШЫҚТЫ: " + error.message); 
+                messageElement.textContent = "Қате кетті... Қайта көріңіз.";
             }).finally(() => {
+
                 chatbox.scrollTo(0, chatbox.scrollHeight);
             });
         }
