@@ -292,23 +292,32 @@
     <script>
         AOS.init({ duration: 1000, once: true });
     </script>
-        <button class="chatbot-toggler">
+            <button class="chatbot-toggler">
         <span class="material-symbols-rounded"><i class="fa-solid fa-robot"></i></span>
         <span class="material-symbols-outlined"><i class="fa-solid fa-xmark"></i></span>
         
-        <span class="bot-tooltip">Сұрағыңыз бар ма? 🤖</span>
+        <div class="hologram-tooltip">
+            <span class="status-dot"></span> Online
+            <div class="tooltip-text">AI Көмекші қосулы</div>
+        </div>
     </button>
 
     <div class="chatbot">
         <header>
-            <h2>UaqytAI Assistant</h2>
+            <div class="header-info">
+                <i class="fa-solid fa-microchip pulse-icon"></i>
+                <div>
+                    <h2>UaqytAI System</h2>
+                    <p class="status">● System Active</p>
+                </div>
+            </div>
             <span class="close-btn material-symbols-outlined"><i class="fa-solid fa-xmark"></i></span>
         </header>
         
         <ul class="chatbox">
             <li class="chat incoming">
                 <span class="material-symbols-outlined"><i class="fa-solid fa-robot"></i></span>
-                <p>Сәлем! 👋 <br>Мен UaqytAI жасанды интеллектімін. <br>Сізге қалай көмектесе аламын?</p>
+                <p>Сәлем! 👋 <br>Мен UaqytAI жүйесімін. <br>Сізге қалай көмектесе аламын?</p>
             </li>
         </ul>
         
@@ -319,167 +328,144 @@
     </div>
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
-
-        /* Батырманың стилі */
+        /* БАТЫРМА (Кішірейтілді) */
         .chatbot-toggler {
             position: fixed;
-            bottom: 30px;
-            right: 35px;
+            bottom: 25px;
+            right: 25px; /* Шетке жақындаттық */
             outline: none;
             border: none;
-            height: 60px;
-            width: 60px;
+            height: 50px; /* 60px-тан 50px-ке кішірейді */
+            width: 50px;
             display: flex;
             cursor: pointer;
             align-items: center;
             justify-content: center;
             border-radius: 50%;
-            background: linear-gradient(135deg, #00f2ff, #7000ff);
-            box-shadow: 0 0 20px rgba(0, 242, 255, 0.6);
+            /* Градиент емес, шыны эффект */
+            background: rgba(0, 242, 255, 0.1);
+            border: 1px solid #00f2ff;
+            box-shadow: 0 0 15px rgba(0, 242, 255, 0.4);
             transition: all 0.2s ease;
             z-index: 9999;
-            /* Батырманың өзі де сәл секіріп тұрады */
-            animation: bounceBtn 3s infinite;
+            backdrop-filter: blur(5px);
         }
 
-        @keyframes bounceBtn {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-        }
-        
-        .chatbot-toggler span { color: #fff; position: absolute; font-size: 24px; }
+        .chatbot-toggler span { color: #00f2ff; font-size: 22px; position: absolute; }
         .chatbot-toggler span:last-child, body.show-chatbot .chatbot-toggler span:first-child { opacity: 0; }
-        body.show-chatbot .chatbot-toggler span:last-child { opacity: 1; }
+        body.show-chatbot .chatbot-toggler span:last-child { opacity: 1; color: #ff0055; } /* Жабылғанда қызыл */
 
-                /* ЖАҢА: NEON STYLE ХАБАРЛАМА */
-                        /* 2 ЕСЕ КІШІРЕЙТІЛГЕН НҰСҚА */
-                        /* ============================================== */
-        /* 1. ТЕЛЕФОН ҮШІН (МИКРО ӨЛШЕМ) */
-        /* ============================================== */
-        .bot-tooltip {
+        /* ГОЛОГРАММА ХАБАРЛАМА (Аппақ бұлт емес) */
+        .hologram-tooltip {
             position: absolute;
-            /* Батырмаға жабысып тұрады */
-            right: 55px; 
+            right: 65px; /* Батырманың жанында */
             top: 50%;
             transform: translateY(-50%);
-            
-            background: rgba(15, 23, 42, 0.95); 
+            background: rgba(5, 10, 20, 0.9);
+            border: 1px solid rgba(0, 242, 255, 0.3);
             color: #00f2ff;
-            border: 1px solid rgba(0, 242, 255, 0.3); 
-            
-            /* МАКСИМАЛДЫ КІШІРЕЙТУ 👇 */
-            padding: 2px 5px;   /* Өте тығыз */
-            border-radius: 4px; /* Кішкентай бұрыш */
-            font-size: 8px;     /* Ең кішкентай оқылатын шрифт */
-            
-            font-family: 'Outfit', sans-serif;
-            font-weight: 400;   /* Жіңішке әріп */
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 11px; /* Өте кішкентай, ұқыпты */
+            font-family: 'Courier New', monospace; /* Код сияқты шрифт */
             white-space: nowrap;
-            letter-spacing: 0.1px;
-            
-            /* Жарқырауды да азайттық */
-            box-shadow: 0 0 3px rgba(0, 242, 255, 0.1); 
-            
             pointer-events: none;
             opacity: 0;
-            animation: hologramPop 5s infinite;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 0 10px rgba(0, 242, 255, 0.1);
+            
+            /* Анимация: Шығып-кіріп тұрады */
+            animation: hologramFade 5s infinite;
         }
 
-        /* Микро стрелка */
-        .bot-tooltip::after {
-            content: '';
-            position: absolute;
-            right: -3px; 
-            top: 50%;
-            transform: translateY(-50%) rotate(45deg);
-            width: 4px;   /* Өте кішкентай */
-            height: 4px;
-            background: rgba(15, 23, 42, 0.95);
-            border-right: 1px solid rgba(0, 242, 255, 0.3);
-            border-top: 1px solid rgba(0, 242, 255, 0.3);
+        .status-dot {
+            width: 6px; height: 6px; background: #00f2ff; border-radius: 50%;
+            box-shadow: 0 0 5px #00f2ff;
         }
 
-        /* ============================================== */
-        /* 2. КОМПЬЮТЕРДЕ (СӘЛ ҮЛКЕНІРЕК БОЛЫП ҚАЛАДЫ) */
-        /* ============================================== */
-        @media (min-width: 768px) {
-            .bot-tooltip {
-                right: 75px; 
-                font-size: 13px; /* Компьютерде қалыпты тұрады */
-                padding: 8px 15px;
-                border-radius: 10px;
-                font-weight: 600;
-            }
-            .bot-tooltip::after {
-                right: -5px;
-                width: 8px;
-                height: 8px;
-            }
+        @keyframes hologramFade {
+            0%, 100% { opacity: 0; transform: translate(10px, -50%); }
+            10%, 90% { opacity: 1; transform: translate(0, -50%); }
         }
 
-        /* Чат ашылғанда жоғалады */
-        body.show-chatbot .bot-tooltip { display: none; }
+        /* Чат ашылғанда жазу жоғалады */
+        body.show-chatbot .hologram-tooltip { display: none; }
 
-        /* ЖАҢА АНИМАЦИЯ: ГОЛОГРАММА СИЯҚТЫ ШЫҒУ */
-        @keyframes hologramPop {
-            0% { 
-                opacity: 0; 
-                transform: translate(20px, -50%) scale(0.8); 
-                filter: blur(5px); /* Басында бұлдырап тұрады */
-            }
-            10% { 
-                opacity: 1; 
-                transform: translate(0, -50%) scale(1); 
-                filter: blur(0px); 
-            }
-            50% { 
-                opacity: 1; 
-                transform: translate(0, -50%) scale(1); 
-            }
-            60% { 
-                opacity: 0; 
-                transform: translate(0, -50%) scale(1); 
-                filter: blur(2px);
-            }
-            100% { opacity: 0; }
-        }
-
-        
-
-        /* Чат терезесінің стилі (бұрынғыдай) */
+        /* ЧАТ ТЕРЕЗЕСІ (Дизайн) */
         .chatbot {
-            position: fixed; right: 35px; bottom: 100px; width: 380px;
-            background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(15px);
-            border-radius: 20px; overflow: hidden; opacity: 0;
+            position: fixed; right: 25px; bottom: 85px; width: 320px; /* Ені кішірейді */
+            background: rgba(10, 15, 30, 0.95); /* Қап-қара шыны */
+            backdrop-filter: blur(15px);
+            border-radius: 15px; overflow: hidden; opacity: 0;
             pointer-events: none; transform: scale(0.5); transform-origin: bottom right;
-            box-shadow: 0 0 128px 0 rgba(0,0,0,0.1), 0 32px 64px -48px rgba(0,0,0,0.5);
-            transition: all 0.3s ease; z-index: 9999; border: 1px solid rgba(0, 242, 255, 0.3);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(0, 242, 255, 0.2);
+            transition: all 0.3s ease; z-index: 9999;
         }
+
         body.show-chatbot .chatbot { opacity: 1; pointer-events: auto; transform: scale(1); }
-        .chatbot header { padding: 16px 0; position: relative; text-align: center; color: #fff; background: linear-gradient(135deg, #00f2ff, #7000ff); box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .chatbot header span { position: absolute; right: 15px; top: 50%; display: none; cursor: pointer; transform: translateY(-50%); }
-        header h2 { font-size: 1.2rem; font-family: 'Poppins', sans-serif; }
-        .chatbot .chatbox { overflow-y: auto; height: 400px; padding: 30px 20px 100px; }
-        .chatbot :where(.chatbox, textarea)::-webkit-scrollbar { width: 6px; }
-        .chatbot :where(.chatbox, textarea)::-webkit-scrollbar-track { background: #fff; border-radius: 25px; }
-        .chatbot :where(.chatbox, textarea)::-webkit-scrollbar-thumb { background: #ccc; border-radius: 25px; }
-        .chatbox .chat { display: flex; list-style: none; }
-        .chatbox .outgoing { margin: 20px 0; justify-content: flex-end; }
-        .chatbox .incoming span { width: 32px; height: 32px; color: #fff; cursor: default; text-align: center; line-height: 32px; align-self: flex-end; background: linear-gradient(135deg, #00f2ff, #7000ff); border-radius: 4px; margin: 0 10px 7px 0; font-size: 16px; }
-        .chatbox .chat p { white-space: pre-wrap; padding: 12px 16px; border-radius: 10px 10px 0 10px; max-width: 75%; color: #fff; font-size: 0.95rem; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .chatbox .incoming p { border-radius: 10px 10px 10px 0; background: rgba(255, 255, 255, 0.1); }
-        .chatbox .outgoing p { background: linear-gradient(135deg, #00f2ff, #7000ff); color: #fff; border: none; }
-        .chatbot .chat-input { display: flex; gap: 5px; position: absolute; bottom: 0; width: 100%; background: rgba(15, 23, 42, 0.95); padding: 3px 20px; border-top: 1px solid rgba(255, 255, 255, 0.1); }
-        .chat-input textarea { height: 55px; width: 100%; border: none; outline: none; resize: none; max-height: 180px; padding: 15px 15px 15px 0; font-size: 0.95rem; background: transparent; color: #fff; }
-        .chat-input span { align-self: flex-end; color: #00f2ff; cursor: pointer; height: 55px; display: flex; align-items: center; visibility: hidden; font-size: 1.35rem; }
-        .chat-input textarea:valid ~ span { visibility: visible; }
-        @media (max-width: 490px) {
-            .chatbot-toggler { right: 20px; bottom: 20px; }
-            .chatbot { right: 0; bottom: 0; height: 100%; border-radius: 0; width: 100%; }
-            .chatbot .chatbox { height: 90%; padding: 25px 15px 100px; }
-            .chatbot .chat-input { padding: 5px 15px; }
-            .chatbot header span { display: block; }
+
+        /* Header (Бас жағы) */
+        .chatbot header {
+            padding: 15px;
+            background: rgba(0, 242, 255, 0.05);
+            border-bottom: 1px solid rgba(0, 242, 255, 0.1);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .header-info { display: flex; align-items: center; gap: 10px; color: white; }
+        .header-info h2 { font-size: 14px; margin: 0; color: #fff; letter-spacing: 1px; }
+        .header-info p { font-size: 10px; color: #00f2ff; margin: 0; }
+        .pulse-icon { color: #00f2ff; animation: pulse 2s infinite; }
+        .close-btn { color: #888; cursor: pointer; font-size: 18px; transition: 0.3s; }
+        .close-btn:hover { color: #ff0055; }
+
+        /* Хабарламалар */
+        .chatbot .chatbox { overflow-y: auto; height: 350px; padding: 20px 15px 70px; }
+        .chatbox .chat { display: flex; list-style: none; margin-bottom: 15px; }
+        
+        /* Боттың жауабы */
+        .chatbox .incoming span {
+            width: 28px; height: 28px; background: rgba(0, 242, 255, 0.1);
+            color: #00f2ff; text-align: center; line-height: 28px;
+            border-radius: 50%; margin-right: 10px; border: 1px solid rgba(0, 242, 255, 0.3);
+            align-self: flex-end;
+        }
+        .chatbox .incoming p {
+            background: rgba(255, 255, 255, 0.05); color: #e0e0e0;
+            padding: 10px; border-radius: 10px 10px 10px 0;
+            font-size: 13px; line-height: 1.4; border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* Сіздің жазғаныңыз */
+        .chatbox .outgoing { justify-content: flex-end; }
+        .chatbox .outgoing p {
+            background: linear-gradient(90deg, #00f2ff22, #0077ff44);
+            color: #fff; border: 1px solid rgba(0, 242, 255, 0.3);
+            border-radius: 10px 10px 0 10px; padding: 10px; font-size: 13px;
+        }
+
+        /* Жазу жолағы */
+        .chatbot .chat-input {
+            position: absolute; bottom: 0; width: 100%;
+            display: flex; gap: 5px; background: rgba(5, 10, 20, 0.95);
+            padding: 10px; border-top: 1px solid rgba(0, 242, 255, 0.1);
+        }
+        .chat-input textarea {
+            height: 40px; width: 100%; border: none; outline: none; resize: none;
+            background: transparent; color: #fff; font-size: 13px; padding: 10px;
+        }
+        .chat-input span {
+            align-self: center; color: #00f2ff; cursor: pointer;
+            font-size: 18px; padding-right: 10px;
+        }
+
+        /* ТЕЛЕФОН ҮШІН АРНАЙЫ (Мобильная адаптация) */
+        @media (max-width: 480px) {
+            .chatbot-toggler { width: 45px; height: 45px; right: 15px; bottom: 15px; }
+            .chatbot { width: 90%; right: 5%; bottom: 70px; height: 400px; }
+            .hologram-tooltip { right: 55px; font-size: 10px; padding: 5px 10px; }
         }
     </style>
 
@@ -493,7 +479,7 @@
         let userMessage = null; 
         const inputInitHeight = chatInput.scrollHeight;
 
-        // URL ТАЗАЛАУ (ҚАТЕ КЕТПЕС ҮШІН)
+        // URL ТАЗАЛАУ (Қате жібермеу үшін)
         const rawUrl = "https://server6254.vopami-server.com/webhook/bd835b37-e8b4-485c-9f28-6ac9b1d8afd1";
         const N8N_WEBHOOK_URL = rawUrl.replace(/\s/g, '').trim(); 
 
@@ -519,7 +505,7 @@
             .then(data => {
                 messageElement.textContent = data.answer || data.output || "Жауап келмеді...";
             }).catch((error) => {
-                messageElement.textContent = "Байланыс қатесі... Қайта көріңіз.";
+                messageElement.textContent = "Сервермен байланыс жоқ...";
             }).finally(() => {
                 chatbox.scrollTo(0, chatbox.scrollHeight);
             });
@@ -556,6 +542,6 @@
         closeBtn.addEventListener("click", () => document.body.classList.remove("show-chatbot"));
         chatbotToggler.addEventListener("click", () => document.body.classList.toggle("show-chatbot"));
     </script>
-
+    
 </body>
 </html>
