@@ -469,7 +469,7 @@
         }
     </style>
 
-    <script>
+        <script>
         const chatbotToggler = document.querySelector(".chatbot-toggler");
         const closeBtn = document.querySelector(".close-btn");
         const chatbox = document.querySelector(".chatbox");
@@ -479,7 +479,7 @@
         let userMessage = null; 
         const inputInitHeight = chatInput.scrollHeight;
 
-        // URL ТАЗАЛАУ (Қате жібермеу үшін)
+        // СІЛТЕМЕ (Бос орындардан тазалайды)
         const rawUrl = "https://server6254.vopami-server.com/webhook/bd835b37-e8b4-485c-9f28-6ac9b1d8afd1";
         const N8N_WEBHOOK_URL = rawUrl.replace(/\s/g, '').trim(); 
 
@@ -497,16 +497,34 @@
         const generateResponse = (chatElement) => {
             const messageElement = chatElement.querySelector("p");
 
+            // 1. ТАЙМЕРДІ 35 СЕКУНДҚА ҚОЙДЫҚ 👇
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 35000); // 35000 мс = 35 секунд
+
             fetch(N8N_WEBHOOK_URL, {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ message: userMessage }) 
-            }).then(res => res.json())
+                headers: { 
+                    "Content-Type": "application/json; charset=utf-8" 
+                },
+                body: JSON.stringify({ message: userMessage }),
+                signal: controller.signal // Таймерді қосамыз
+            }).then(res => {
+                if (!res.ok) {
+                    throw new Error(`HTTP қатесі! Статус: ${res.status}`);
+                }
+                return res.json();
+            })
             .then(data => {
-                messageElement.textContent = data.answer || data.output || "Жауап келмеді...";
+                messageElement.textContent = data.answer || data.output || "Жауап бос келді...";
             }).catch((error) => {
-                messageElement.textContent = "Сервермен байланыс жоқ...";
+                // Қате түрін тексереміз
+                if (error.name === 'AbortError') {
+                    messageElement.textContent = "Сервер жауап беруге үлгермеді (35 сек өтті). Қайта сұрап көріңіз.";
+                } else {
+                    messageElement.textContent = "Сервермен байланыс жоқ... Қайта көріңіз.";
+                }
             }).finally(() => {
+                clearTimeout(timeoutId); // Таймерді тоқтатамыз
                 chatbox.scrollTo(0, chatbox.scrollHeight);
             });
         }
@@ -520,8 +538,9 @@
             chatbox.appendChild(createChatLi(userMessage, "outgoing"));
             chatbox.scrollTo(0, chatbox.scrollHeight);
 
+            // "Ойланып жатырмын..." деген жазу шығады
             setTimeout(() => {
-                const incomingChatLi = createChatLi("...", "incoming");
+                const incomingChatLi = createChatLi("Ойланып жатырмын...", "incoming");
                 chatbox.appendChild(incomingChatLi);
                 chatbox.scrollTo(0, chatbox.scrollHeight);
                 generateResponse(incomingChatLi);
@@ -542,6 +561,7 @@
         closeBtn.addEventListener("click", () => document.body.classList.remove("show-chatbot"));
         chatbotToggler.addEventListener("click", () => document.body.classList.toggle("show-chatbot"));
     </script>
+
     
 </body>
 </html>
