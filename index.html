@@ -2,570 +2,225 @@
 <html lang="kz">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UaqytAI | Future Tech</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="icon" type="image/jpeg" href="IMG_4566.jpeg">
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>UaqytAI - iOS Login</title>
     <style>
-        :root {
-            --primary: #00f2ff; /* Неон Циан */
-            --secondary: #7000ff; /* Неон Күлгін */
-            --dark: #050510; /* Терең қара */
-            --glass: rgba(255, 255, 255, 0.03);
-            --border: rgba(255, 255, 255, 0.1);
-        }
-        
-        * { box-sizing: border-box; }
-
+        /* --- iOS 16 GLASSMORPHISM СТИЛІ --- */
         body {
-            font-family: 'Outfit', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: var(--dark);
-            color: #ffffff;
-            overflow-x: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+            background: linear-gradient(130deg, #ff7eb3, #ff758c, #4286f4, #34e89e);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; box-sizing: border-box;
         }
-
-        /* Күрделі, әдемі артқы фон */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: 
-                radial-gradient(circle at 15% 50%, rgba(112, 0, 255, 0.15), transparent 25%),
-                radial-gradient(circle at 85% 30%, rgba(0, 242, 255, 0.15), transparent 25%);
-            z-index: -2;
-        }
-
-        /* Тор (Grid) эффектісі */
-        body::after {
-            content: '';
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
-            z-index: -1;
-            mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
-        }
-
-        /* Glassmorphism Header */
-        header {
-            padding: 20px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(5, 5, 16, 0.7);
-            backdrop-filter: blur(20px);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .logo-text {
-            font-size: 1.8rem;
-            font-weight: 900;
-            letter-spacing: 1px;
-            background: linear-gradient(to right, #fff, var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* HERO AREA */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 120px 20px 50px;
-        }
-
-        .main-logo {
-            width: 250px;
-            margin-bottom: 40px;
-            border-radius: 40px; /* Домалақ бұрыштар */
-            box-shadow: 0 0 50px rgba(0, 242, 255, 0.2); /* Жарқырау */
-            animation: float 6s ease-in-out infinite;
-            border: 2px solid rgba(255,255,255,0.1);
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0px); }
-        }
-
-        h1 {
-            font-size: 4rem; /* Үлкейтілді */
-            margin-bottom: 20px;
-            line-height: 1.1;
-            font-weight: 900;
-        }
-
-        /* Градиент мәтін */
-        h1 span {
-            background: linear-gradient(120deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 20px rgba(0, 242, 255, 0.3));
-        }
-
-        p.subtitle {
-            font-size: 1.3rem;
-            color: #a0a0a0;
-            max-width: 650px;
-            margin-bottom: 50px;
-            line-height: 1.6;
-        }
-
-        /* ПУЛЬС БАТЫРМАСЫ */
-        .btn {
-            position: relative;
-            padding: 20px 60px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 1.2rem;
-            transition: 0.3s;
-            overflow: hidden;
-            z-index: 1;
-            box-shadow: 0 0 30px rgba(112, 0, 255, 0.4);
-        }
-
-        /* Батырманың артындағы пульс */
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            z-index: -1;
-            filter: blur(20px);
-            opacity: 0.7;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(0.95); opacity: 0.7; }
-            50% { transform: scale(1.1); opacity: 0.4; }
-            100% { transform: scale(0.95); opacity: 0.7; }
-        }
-
-        .btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 50px rgba(0, 242, 255, 0.6);
-        }
-
-        /* SERVICES (Glass Cards) */
-        .services { padding: 100px 5%; }
+        @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
         
-        .section-header h2 {
-            font-size: 3rem;
-            text-align: center;
-            margin-bottom: 70px;
-            font-weight: 700;
+        .glass-container {
+            background: rgba(255, 255, 255, 0.65); backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px);
+            border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.5); padding: 30px; width: 100%; max-width: 420px; text-align: center; color: #1d1d1f;
         }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 40px;
-        }
-
-        /* Шыны карточка */
-        .card {
-            background: var(--glass);
-            backdrop-filter: blur(15px); /* Шыны эффект */
-            padding: 50px 30px;
-            border-radius: 30px;
-            border: 1px solid var(--border);
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Карточканың ішіндегі жарқырау */
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 100%);
-            opacity: 0;
-            transition: 0.4s;
-        }
-
-        .card:hover {
-            transform: translateY(-15px);
-            border-color: var(--primary);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-        }
-
-        .card:hover::before { opacity: 1; }
-
-        .card-icon {
-            font-size: 3rem;
-            margin-bottom: 25px;
-            background: linear-gradient(to bottom, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .card h3 { font-size: 1.6rem; margin-bottom: 15px; font-weight: 700; }
-        .card p { color: #b0b0b0; font-size: 1.05rem; line-height: 1.7; }
-
-        footer {
-            text-align: center;
-            padding: 80px 20px;
-            border-top: 1px solid var(--border);
-            color: #666;
-            background: rgba(0,0,0,0.2);
-        }
-
-        @media (max-width: 768px) {
-            h1 { font-size: 2.8rem; }
-            .btn { width: 100%; justify-content: center; }
-            .card { padding: 30px; }
-        }
+        
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+        .logo { font-size: 28px; font-weight: 800; background: linear-gradient(to right, #007AFF, #5AC8FA); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .balance-badge { background: rgba(255, 255, 255, 0.5); padding: 8px 16px; border-radius: 20px; font-weight: 600; color: #007AFF; }
+        
+        input, textarea { width: 100%; padding: 16px; border-radius: 15px; border: none; background: rgba(255, 255, 255, 0.5); margin-bottom: 15px; box-sizing: border-box; transition: 0.3s; }
+        input:focus, textarea:focus { outline: none; background: rgba(255, 255, 255, 0.8); box-shadow: 0 4px 15px rgba(0, 122, 255, 0.2); }
+        
+        .btn { background: linear-gradient(135deg, #007AFF, #00C6FF); color: white; border: none; padding: 16px; border-radius: 15px; font-weight: 700; width: 100%; cursor: pointer; margin-bottom: 10px; box-shadow: 0 4px 15px rgba(0, 122, 255, 0.3); }
+        .btn:active { transform: scale(0.98); }
+        .btn-outline { background: transparent; border: 2px solid #007AFF; color: #007AFF; box-shadow: none; }
+        .btn-google { background: white; color: #333; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        
+        .divider { margin: 20px 0; color: #888; font-size: 14px; }
+        .forgot-link { display: block; margin-bottom: 20px; font-size: 14px; color: #007AFF; text-decoration: none; cursor: pointer; }
+        .forgot-link:hover { text-decoration: underline; }
+        
+        #resultImage { width: 100%; border-radius: 22px; margin-top: 20px; display: none; border: 4px solid rgba(255,255,255,0.5); }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="logo-text">UAQYT<span>AI</span></div>
-    </header>
-
-    <section class="hero">
-        <img src="IMG_4566.jpeg" alt="UaqytAI Logo" class="main-logo">
-
-        <h1>Болашақтың бизнесін <br><span>бүгін жасаңыз</span></h1>
-        <p class="subtitle">
-            Біз n8n арқылы рутинаны автоматтандырамыз, AI арқылы контент жасаймыз және 
-            сатылым әкелетін заманауи сайттар құрастырамыз.
-        </p>
-        
-        <a href="https://t.me/uaqytAi" class="btn" target="_blank">
-            <i class="fa-brands fa-telegram" style="margin-right: 10px;"></i> Telegram-ға жазу
-        </a>
-    </section>
-
-    <section class="services">
-        <div class="section-header">
-            <h2 data-aos="fade-up">Мен не ұсынамын?</h2>
-        </div>
-        
-        <div class="grid">
-            <div class="card" data-aos="fade-up" data-aos-delay="100">
-                <div class="card-icon"><i class="fa-solid fa-robot"></i></div>
-                <h3>n8n Automation</h3>
-                <p>Бизнес процестерді роботқа тапсырыңыз. Telegram боттар, CRM жүйелерді жалғау және тапсырысты автоматты өңдеу.</p>
+    <div class="glass-container">
+        <div class="header">
+            <div class="logo">UaqytAI</div>
+            <div id="userInfo" style="display: none;">
+                <span class="balance-badge">💰 <span id="balance">0</span> ₸</span>
             </div>
+        </div>
+
+        <div id="loginSection">
+            <h2>Қош келдіңіз! 👋</h2>
             
-            <div class="card" data-aos="fade-up" data-aos-delay="200">
-                <div class="card-icon"><i class="fa-solid fa-globe"></i></div>
-                <h3>Cyber Web Design</h3>
-                <p>Клиентті "сатып алуға" итермелейтін футуристік, жылдам әрі мобильді сайттар. SEO және UI/UX дизайн.</p>
-            </div>
+            <input type="email" id="emailInput" placeholder="Email (Поштаңыз)">
+            <input type="password" id="passInput" placeholder="Құпия сөз (Пароль)">
+            
+            <a id="forgotBtn" class="forgot-link">Парольді ұмыттыңыз ба?</a>
+            
+            <button id="loginBtn" class="btn">Кіру</button>
+            <button id="registerBtn" class="btn btn-outline">Тіркелу</button>
 
-            <div class="card" data-aos="fade-up" data-aos-delay="300">
-                <div class="card-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
-                <h3>AI Content Gen</h3>
-                <p>Жасанды интеллект арқылы Reels/TikTok монтаждау, сценарий жазу және визуалды дизайн жасау.</p>
-            </div>
+            <div class="divider">- НЕМЕСЕ -</div>
+
+            <button id="googleBtn" class="btn btn-google">
+                <svg width="20" height="20" viewBox="0 0 24 24"><path d="M21.35,11.1H12v3.8h5.6c-0.6,2.3-2.5,3.6-4.9,3.6c-3.3,0-6-2.5-6-5.7s2.8-5.7,6-5.7c1.5,0,2.8,0.5,3.8,1.4l2.8-2.8C17.6,3.8,15,2.9,12,2.9c-5.2,0-9.4,4-9.4,9c0,5,4.2,9,9.4,9c5.1,0,9.1-3.4,9.1-8.5C21.1,11.8,21.35,11.1,21.35,11.1z" fill="#4285F4"/></svg>
+                Google арқылы
+            </button>
         </div>
-    </section>
 
-    <footer>
-        <p>Байланыс үшін Telegram-ға жазыңыз</p>
-        <p>&copy; 2025 UaqytAI. Ethical Hacking & AI Development.</p>
-    </footer>
+        <div id="appSection" style="display: none; text-align: left;">
+            <label style="font-weight: 600; display: block; margin-bottom: 12px; margin-left: 5px;">Промпт жазыңыз:</label>
+            <textarea id="promptInput" placeholder="Мысалы: Болашақтағы Алматы қаласы, ұшатын көліктер..."></textarea>
+            
+            <button id="generateBtn" class="btn">Сурет жасау (5 теңге)</button>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init({ duration: 1000, once: true });
-    </script>
-            <button class="chatbot-toggler">
-        <span class="material-symbols-rounded"><i class="fa-solid fa-robot"></i></span>
-        <span class="material-symbols-outlined"><i class="fa-solid fa-xmark"></i></span>
-        
-        <div class="hologram-tooltip">
-            <span class="status-dot"></span> Online
-            <div class="tooltip-text">AI Көмекші қосулы</div>
-        </div>
-    </button>
-
-    <div class="chatbot">
-        <header>
-            <div class="header-info">
-                <i class="fa-solid fa-microchip pulse-icon"></i>
-                <div>
-                    <h2>UaqytAI System</h2>
-                    <p class="status">● System Active</p>
-                </div>
+            <div style="text-align: center;">
+                <p id="loader" style="display:none; color:#007AFF; font-weight:bold;">Жасанды интеллект жұмыс істеуде... 🎨</p>
+                <img id="resultImage" src="" alt="Нәтиже">
             </div>
-            <span class="close-btn material-symbols-outlined"><i class="fa-solid fa-xmark"></i></span>
-        </header>
-        
-        <ul class="chatbox">
-            <li class="chat incoming">
-                <span class="material-symbols-outlined"><i class="fa-solid fa-robot"></i></span>
-                <p>Сәлем! 👋 <br>Мен UaqytAI жүйесімін. <br>Сізге қалай көмектесе аламын?</p>
-            </li>
-        </ul>
-        
-        <div class="chat-input">
-            <textarea placeholder="Сұрағыңызды жазыңыз..." spellcheck="false" required></textarea>
-            <span id="send-btn" class="material-symbols-rounded"><i class="fa-solid fa-paper-plane"></i></span>
+
+            <button onclick="logout()" class="btn" style="background: rgba(255,59,48,0.1); color: #FF3B30; margin-top:15px; box-shadow: none;">Шығу</button>
         </div>
     </div>
 
-    <style>
-        /* БАТЫРМА (Кішірейтілді) */
-        .chatbot-toggler {
-            position: fixed;
-            bottom: 25px;
-            right: 25px; /* Шетке жақындаттық */
-            outline: none;
-            border: none;
-            height: 50px; /* 60px-тан 50px-ке кішірейді */
-            width: 50px;
-            display: flex;
-            cursor: pointer;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            /* Градиент емес, шыны эффект */
-            background: rgba(0, 242, 255, 0.1);
-            border: 1px solid #00f2ff;
-            box-shadow: 0 0 15px rgba(0, 242, 255, 0.4);
-            transition: all 0.2s ease;
-            z-index: 9999;
-            backdrop-filter: blur(5px);
-        }
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        .chatbot-toggler span { color: #00f2ff; font-size: 22px; position: absolute; }
-        .chatbot-toggler span:last-child, body.show-chatbot .chatbot-toggler span:first-child { opacity: 0; }
-        body.show-chatbot .chatbot-toggler span:last-child { opacity: 1; color: #ff0055; } /* Жабылғанда қызыл */
+        // --- СЕН ЖІБЕРГЕН КІЛТТЕР ---
+        const firebaseConfig = {
+          apiKey: "AIzaSyBbeFirznnz99cwv1DVIroQj5ZBSM-knlY",
+          authDomain: "uaqytai-ecc62.firebaseapp.com",
+          projectId: "uaqytai-ecc62",
+          storageBucket: "uaqytai-ecc62.firebasestorage.app",
+          messagingSenderId: "43876455640",
+          appId: "1:43876455640:web:19cf47288a8cf6b3daf3ad",
+          measurementId: "G-H8WFVBMEBG"
+        };
 
-        /* ГОЛОГРАММА ХАБАРЛАМА (Аппақ бұлт емес) */
-        .hologram-tooltip {
-            position: absolute;
-            right: 65px; /* Батырманың жанында */
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(5, 10, 20, 0.9);
-            border: 1px solid rgba(0, 242, 255, 0.3);
-            color: #00f2ff;
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-size: 11px; /* Өте кішкентай, ұқыпты */
-            font-family: 'Courier New', monospace; /* Код сияқты шрифт */
-            white-space: nowrap;
-            pointer-events: none;
-            opacity: 0;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            box-shadow: 0 0 10px rgba(0, 242, 255, 0.1);
+        // Firebase-ті іске қосу
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const googleProvider = new GoogleAuthProvider();
+
+        // Элементтер
+        const emailInput = document.getElementById('emailInput');
+        const passInput = document.getElementById('passInput');
+        const loginSection = document.getElementById('loginSection');
+        const appSection = document.getElementById('appSection');
+        const userInfo = document.getElementById('userInfo');
+        const balanceSpan = document.getElementById('balance');
+        const loader = document.getElementById('loader');
+        const resultImage = document.getElementById('resultImage');
+        const generateBtn = document.getElementById('generateBtn');
+
+        // --- 1. ТІРКЕЛУ (Поштамен) ---
+        document.getElementById('registerBtn').addEventListener('click', () => {
+            const email = emailInput.value;
+            const pass = passInput.value;
+            if(!email || !pass) return alert("Пошта мен пароль жазыңыз!");
             
-            /* Анимация: Шығып-кіріп тұрады */
-            animation: hologramFade 5s infinite;
-        }
-
-        .status-dot {
-            width: 6px; height: 6px; background: #00f2ff; border-radius: 50%;
-            box-shadow: 0 0 5px #00f2ff;
-        }
-
-        @keyframes hologramFade {
-            0%, 100% { opacity: 0; transform: translate(10px, -50%); }
-            10%, 90% { opacity: 1; transform: translate(0, -50%); }
-        }
-
-        /* Чат ашылғанда жазу жоғалады */
-        body.show-chatbot .hologram-tooltip { display: none; }
-
-        /* ЧАТ ТЕРЕЗЕСІ (Дизайн) */
-        .chatbot {
-            position: fixed; right: 25px; bottom: 85px; width: 320px; /* Ені кішірейді */
-            background: rgba(10, 15, 30, 0.95); /* Қап-қара шыны */
-            backdrop-filter: blur(15px);
-            border-radius: 15px; overflow: hidden; opacity: 0;
-            pointer-events: none; transform: scale(0.5); transform-origin: bottom right;
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
-            border: 1px solid rgba(0, 242, 255, 0.2);
-            transition: all 0.3s ease; z-index: 9999;
-        }
-
-        body.show-chatbot .chatbot { opacity: 1; pointer-events: auto; transform: scale(1); }
-
-        /* Header (Бас жағы) */
-        .chatbot header {
-            padding: 15px;
-            background: rgba(0, 242, 255, 0.05);
-            border-bottom: 1px solid rgba(0, 242, 255, 0.1);
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        .header-info { display: flex; align-items: center; gap: 10px; color: white; }
-        .header-info h2 { font-size: 14px; margin: 0; color: #fff; letter-spacing: 1px; }
-        .header-info p { font-size: 10px; color: #00f2ff; margin: 0; }
-        .pulse-icon { color: #00f2ff; animation: pulse 2s infinite; }
-        .close-btn { color: #888; cursor: pointer; font-size: 18px; transition: 0.3s; }
-        .close-btn:hover { color: #ff0055; }
-
-        /* Хабарламалар */
-        .chatbot .chatbox { overflow-y: auto; height: 350px; padding: 20px 15px 70px; }
-        .chatbox .chat { display: flex; list-style: none; margin-bottom: 15px; }
-        
-        /* Боттың жауабы */
-        .chatbox .incoming span {
-            width: 28px; height: 28px; background: rgba(0, 242, 255, 0.1);
-            color: #00f2ff; text-align: center; line-height: 28px;
-            border-radius: 50%; margin-right: 10px; border: 1px solid rgba(0, 242, 255, 0.3);
-            align-self: flex-end;
-        }
-        .chatbox .incoming p {
-            background: rgba(255, 255, 255, 0.05); color: #e0e0e0;
-            padding: 10px; border-radius: 10px 10px 10px 0;
-            font-size: 13px; line-height: 1.4; border: 1px solid rgba(255,255,255,0.05);
-        }
-
-        /* Сіздің жазғаныңыз */
-        .chatbox .outgoing { justify-content: flex-end; }
-        .chatbox .outgoing p {
-            background: linear-gradient(90deg, #00f2ff22, #0077ff44);
-            color: #fff; border: 1px solid rgba(0, 242, 255, 0.3);
-            border-radius: 10px 10px 0 10px; padding: 10px; font-size: 13px;
-        }
-
-        /* Жазу жолағы */
-        .chatbot .chat-input {
-            position: absolute; bottom: 0; width: 100%;
-            display: flex; gap: 5px; background: rgba(5, 10, 20, 0.95);
-            padding: 10px; border-top: 1px solid rgba(0, 242, 255, 0.1);
-        }
-        .chat-input textarea {
-            height: 40px; width: 100%; border: none; outline: none; resize: none;
-            background: transparent; color: #fff; font-size: 13px; padding: 10px;
-        }
-        .chat-input span {
-            align-self: center; color: #00f2ff; cursor: pointer;
-            font-size: 18px; padding-right: 10px;
-        }
-
-        /* ТЕЛЕФОН ҮШІН АРНАЙЫ (Мобильная адаптация) */
-        @media (max-width: 480px) {
-            .chatbot-toggler { width: 45px; height: 45px; right: 15px; bottom: 15px; }
-            .chatbot { width: 90%; right: 5%; bottom: 70px; height: 400px; }
-            .hologram-tooltip { right: 55px; font-size: 10px; padding: 5px 10px; }
-        }
-    </style>
-
-        <script>
-        const chatbotToggler = document.querySelector(".chatbot-toggler");
-        const closeBtn = document.querySelector(".close-btn");
-        const chatbox = document.querySelector(".chatbox");
-        const chatInput = document.querySelector(".chat-input textarea");
-        const sendChatBtn = document.querySelector(".chat-input span");
-
-        let userMessage = null; 
-        const inputInitHeight = chatInput.scrollHeight;
-
-        // СІЛТЕМЕ (Бос орындардан тазалайды)
-        const rawUrl = "https://server6254.vopami-server.com/webhook/bd835b37-e8b4-485c-9f28-6ac9b1d8afd1";
-        const N8N_WEBHOOK_URL = rawUrl.replace(/\s/g, '').trim(); 
-
-        const createChatLi = (message, className) => {
-            const chatLi = document.createElement("li");
-            chatLi.classList.add("chat", className);
-            let chatContent = className === "outgoing" 
-                ? `<p></p>` 
-                : `<span class="material-symbols-outlined"><i class="fa-solid fa-robot"></i></span><p></p>`;
-            chatLi.innerHTML = chatContent;
-            chatLi.querySelector("p").textContent = message;
-            return chatLi;
-        }
-
-                const generateResponse = (chatElement) => {
-            const messageElement = chatElement.querySelector("p");
-
-            // 90 секунд күту
-            const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 90000); 
-
-            fetch(N8N_WEBHOOK_URL, {
-                method: "POST",
-                headers: { "Content-Type": "application/json; charset=utf-8" },
-                body: JSON.stringify({ message: userMessage }),
-                signal: controller.signal
-            }).then(res => {
-                if (!res.ok) {
-                    throw new Error(`HTTP қатесі! Статус: ${res.status}`);
-                }
-                return res.json();
-            })
-            .then(data => {
-                // === МЫНА ЖЕРДІ ӨЗГЕРТТІК ===
-                // Келген дерек Тізім бе, әлде Объект пе? Тексереміз.
-                const finalData = Array.isArray(data) ? data[0] : data;
-                
-                // Жауапты шығарамыз
-                messageElement.innerText = finalData.answer || finalData.output || "Түсініксіз жауап келді.";
-                // ============================
-            }).catch((error) => {
-                if (error.name === 'AbortError') {
-                    messageElement.textContent = "Уақыт бітті. Қайта сұраңыз.";
-                } else {
-                    messageElement.textContent = "Қате: " + error.message;
-                }
-            }).finally(() => {
-                clearTimeout(timeoutId);
-                chatbox.scrollTo(0, chatbox.scrollHeight);
-            });
-        }
-
-
-        const handleChat = () => {
-            userMessage = chatInput.value.trim();
-            if(!userMessage) return;
-
-            chatInput.value = "";
-            chatInput.style.height = `${inputInitHeight}px`;
-            chatbox.appendChild(createChatLi(userMessage, "outgoing"));
-            chatbox.scrollTo(0, chatbox.scrollHeight);
-
-            // "Ойланып жатырмын..." деген жазу шығады
-            setTimeout(() => {
-                const incomingChatLi = createChatLi("Ойланып жатырмын...", "incoming");
-                chatbox.appendChild(incomingChatLi);
-                chatbox.scrollTo(0, chatbox.scrollHeight);
-                generateResponse(incomingChatLi);
-            }, 600);
-        }
-
-        chatInput.addEventListener("input", () => {
-            chatInput.style.height = `${inputInitHeight}px`;
-            chatInput.style.height = `${chatInput.scrollHeight}px`;
+            createUserWithEmailAndPassword(auth, email, pass)
+                .then(async (res) => {
+                    // Жаңа адамға 50 теңге бонус
+                    await setDoc(doc(db, "users", res.user.uid), { email: email, balance: 50 });
+                    alert("Тіркелу сәтті өтті!");
+                })
+                .catch(err => {
+                    if(err.code === 'auth/email-already-in-use') alert("Бұл пошта тіркеліп қойған!");
+                    else if(err.code === 'auth/weak-password') alert("Пароль тым оңай! Кемінде 6 символ болсын.");
+                    else alert("Қате: " + err.message);
+                });
         });
-        chatInput.addEventListener("keydown", (e) => {
-            if(e.key === "Enter" && !e.shiftKey && window.innerWidth > 800) {
-                e.preventDefault();
-                handleChat();
+
+        // --- 2. КІРУ (Поштамен) ---
+        document.getElementById('loginBtn').addEventListener('click', () => {
+            const email = emailInput.value;
+            const pass = passInput.value;
+            if(!email || !pass) return alert("Пошта мен пароль жазыңыз!");
+
+            signInWithEmailAndPassword(auth, email, pass)
+                .catch(() => alert("Қате! Пошта немесе пароль дұрыс емес."));
+        });
+
+        // --- 3. GOOGLE АРҚЫЛЫ КІРУ ---
+        document.getElementById('googleBtn').addEventListener('click', () => {
+            signInWithPopup(auth, googleProvider).then(async (res) => {
+                const ref = doc(db, "users", res.user.uid);
+                const snap = await getDoc(ref);
+                if(!snap.exists()) {
+                    await setDoc(ref, { email: res.user.email, balance: 50 });
+                }
+            }).catch(err => console.error(err));
+        });
+
+        // --- 4. ПАРОЛЬДІ ҰМЫТТЫМ ---
+        document.getElementById('forgotBtn').addEventListener('click', () => {
+            const email = emailInput.value;
+            if (!email) return alert("Жоғарыға поштаңызды жазыңыз!");
+            
+            sendPasswordResetEmail(auth, email)
+                .then(() => alert("Поштаңызға сілтеме жіберілді!"))
+                .catch(err => alert("Қате: " + err.message));
+        });
+
+        // --- 5. ШЫҒУ ---
+        window.logout = () => signOut(auth);
+
+        // --- 6. КҮЙДІ ТЕКСЕРУ ---
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                loginSection.style.display = 'none';
+                appSection.style.display = 'block';
+                userInfo.style.display = 'block';
+                const snap = await getDoc(doc(db, "users", user.uid));
+                if(snap.exists()) balanceSpan.innerText = snap.data().balance;
+                else balanceSpan.innerText = "0";
+            } else {
+                loginSection.style.display = 'block';
+                appSection.style.display = 'none';
+                userInfo.style.display = 'none';
             }
         });
-        sendChatBtn.addEventListener("click", handleChat);
-        closeBtn.addEventListener("click", () => document.body.classList.remove("show-chatbot"));
-        chatbotToggler.addEventListener("click", () => document.body.classList.toggle("show-chatbot"));
-    </script>
 
-    
+        // --- 7. СУРЕТ ЖАСАУ (ЛОГИКА) ---
+        generateBtn.addEventListener('click', async () => {
+            const prompt = document.getElementById('promptInput').value;
+            if(!prompt) return alert("Промпт жазыңыз!");
+            
+            const user = auth.currentUser;
+            const userRef = doc(db, "users", user.uid);
+            const snap = await getDoc(userRef);
+            
+            if(!snap.exists() || snap.data().balance < 5) {
+                alert("Ақша жеткіліксіз! WhatsApp-қа жазыңыз.");
+                return;
+            }
+
+            // Интерфейсті өзгерту
+            generateBtn.disabled = true;
+            generateBtn.innerText = "Күте тұрыңыз...";
+            loader.style.display = 'block';
+            resultImage.style.display = 'none';
+
+            // Баланстан 5 теңге алу
+            await updateDoc(userRef, { balance: increment(-5) });
+            balanceSpan.innerText = snap.data().balance - 5;
+
+            // Уақытша тегін генерация (Кейін осы жерге нағыз API қосамыз)
+            setTimeout(() => {
+                const imgUrl = "https://image.pollinations.ai/prompt/" + encodeURIComponent(prompt);
+                resultImage.src = imgUrl;
+                resultImage.onload = () => {
+                    resultImage.style.display = 'block';
+                    loader.style.display = 'none';
+                    generateBtn.disabled = false;
+                    generateBtn.innerText = "Сурет жасау (5 теңге)";
+                };
+            }, 1000);
+        });
+    </script>
 </body>
 </html>
